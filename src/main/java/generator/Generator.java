@@ -19,7 +19,7 @@ public class Generator {
 
     private final static String org = "quinn";
     private final static String app = "app";
-//    private final static String entity = "User";
+    //    private final static String entity = "User";
     private static String table_name = "tb_payment";
     /**
      * 需要去掉的前缀
@@ -35,9 +35,13 @@ public class Generator {
      **/
     private final static String name_rule_20 = "20";
 
-    /** 数据库类型 对应 java 类型 **/
+    /**
+     * 数据库类型 对应 java 类型
+     **/
     private static Map<String, String> propertyMap = new HashMap<String, String>();
-    /** 文件存放路径 **/
+    /**
+     * 文件存放路径
+     **/
     private static Map<String, String> fileDirMap = new HashMap<String, String>();
 
     static {
@@ -59,11 +63,11 @@ public class Generator {
         propertyMap.put("json", "String");
         propertyMap.put("mediumtext", "String");
 
-        fileDirMap.put("TemplateDao.java","D:\\generator\\dao\\");
-        fileDirMap.put("TemplateDao.xml","D:\\generator\\mapping\\");
-        fileDirMap.put("TemplateEntity.java","D:\\generator\\entity\\");
-        fileDirMap.put("TemplateService.java","D:\\generator\\service\\");
-        fileDirMap.put("TemplateServiceImpl.java","D:\\generator\\service\\impl\\");
+        fileDirMap.put("TemplateDao.java", "D:\\generator\\dao\\");
+        fileDirMap.put("TemplateDao.xml", "D:\\generator\\mapping\\");
+        fileDirMap.put("TemplateEntity.java", "D:\\generator\\entity\\");
+        fileDirMap.put("TemplateService.java", "D:\\generator\\service\\");
+        fileDirMap.put("TemplateServiceImpl.java", "D:\\generator\\service\\impl\\");
 
     }
 
@@ -121,11 +125,11 @@ public class Generator {
      */
     public static String readFileToString(File file) {
         String encoding = "UTF-8";
-        Long filelength = file.length();
-        byte[] filecontent = new byte[filelength.intValue()];
+        Long fileLength = file.length();
+        byte[] fileContent = new byte[fileLength.intValue()];
         try {
             FileInputStream in = new FileInputStream(file);
-            in.read(filecontent);
+            in.read(fileContent);
             in.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -133,7 +137,7 @@ public class Generator {
             e.printStackTrace();
         }
         try {
-            return new String(filecontent, encoding);
+            return new String(fileContent, encoding);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return null;
@@ -146,7 +150,7 @@ public class Generator {
      * @param str
      * @return
      */
-    public void writeStringToFile(String str,String fileName) {
+    public void writeStringToFile(String str, String fileName) {
         try {
             FileOutputStream o = new FileOutputStream(fileName);
             o.write(str.getBytes("UTF-8"));
@@ -171,9 +175,9 @@ public class Generator {
             String rr = FreemarkerUtil.getString(fileStr, paramMap);
 
             String dir = fileDirMap.get(f.getName());
-            String entity  = getJavaPropertyName(table_name.replace(sub_prefix_table, ""),Generator.name_rule_10);
-            String name = f.getName().replace("Template",entity).replace("Entity","");
-            writeStringToFile(rr,dir+name);
+            String entity = getJavaPropertyName(table_name.replace(sub_prefix_table, ""), Generator.name_rule_10);
+            String name = f.getName().replace("Template", entity).replace("Entity", "");
+            writeStringToFile(rr, dir + name);
 
         }
 
@@ -207,12 +211,12 @@ public class Generator {
             String columnName = ret1.getString(1).toLowerCase();//自动转小写
             columnName = g.getJavaPropertyName(columnName, Generator.name_rule_20);
 
-            String type = ret1.getString(2);
+            String type = ret1.getString(2);//获取数据类型
             if (type.indexOf("(") > 0) {
                 type = type.substring(0, type.indexOf("("));
             }
-            if(CommonUtil.isNullStr(propertyMap.get(type))){
-                throw new RuntimeException("jdbc type is null "+type);
+            if (CommonUtil.isNullStr(propertyMap.get(type))) {
+                throw new RuntimeException("jdbc type is null " + type);
             }
             type = propertyMap.get(type);
 
