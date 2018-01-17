@@ -3,11 +3,11 @@ package com.${org}.${app}.model.entity;
 
 import com.${org}.${app}.model.Base;
 import java.util.*;
+import java.math.BigDecimal;
 
 /**
  * @author Quinn
  * @date 2018/1/15
- * @package com.quinn.app.dao
  */
 public class ${entity} extends Base {
 

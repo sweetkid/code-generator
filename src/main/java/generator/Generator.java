@@ -19,40 +19,46 @@ public class Generator {
 
     private final static String org = "quinn";
     private final static String app = "app";
-    private final static String entity = "User";
-    private final static String table = "tb_user";
-    /** 需要去掉的前缀 */
+//    private final static String entity = "User";
+    private static String table_name = "tb_payment";
+    /**
+     * 需要去掉的前缀
+     */
     private final static String sub_prefix_table = "tb_";
 
-    /** 首字母大写 **/
-    private final static  String name_rule_10 = "10";
-    /** 首字母小写写 **/
-    private final static  String name_rule_20 = "20";
+    /**
+     * 首字母大写
+     **/
+    private final static String name_rule_10 = "10";
+    /**
+     * 首字母小写写
+     **/
+    private final static String name_rule_20 = "20";
 
-    private static  Map<String,String> propertyMap = new HashMap<String, String>();
+    private static Map<String, String> propertyMap = new HashMap<String, String>();
 
     static {
-        propertyMap.put("varchar","String");
-        propertyMap.put("text","String");
-        propertyMap.put("datetime","Date");
-        propertyMap.put("bigint","Long");
-        propertyMap.put("int","Integer");
-        propertyMap.put("decimal","BigDecimal");
-        propertyMap.put("tinyint","Integer");
-        propertyMap.put("date","Date");
-        propertyMap.put("double","Double");
-        propertyMap.put("float","Float");
-        propertyMap.put("longtext","String");
-        propertyMap.put("tinytext","String");
-        propertyMap.put("varbinary","String");
-        propertyMap.put("time","Date");
-        propertyMap.put("timestamp","Date");
+        propertyMap.put("varchar", "String");
+        propertyMap.put("text", "String");
+        propertyMap.put("datetime", "Date");
+        propertyMap.put("bigint", "Long");
+        propertyMap.put("int", "Integer");
+        propertyMap.put("decimal", "BigDecimal");
+        propertyMap.put("tinyint", "Integer");
+        propertyMap.put("date", "Date");
+        propertyMap.put("double", "Double");
+        propertyMap.put("float", "Float");
+        propertyMap.put("longtext", "String");
+        propertyMap.put("tinytext", "String");
+        propertyMap.put("varbinary", "String");
+        propertyMap.put("time", "Date");
+        propertyMap.put("timestamp", "Date");
     }
-
 
 
     /**
      * 首字母大写
+     *
      * @param str
      * @return
      */
@@ -66,26 +72,27 @@ public class Generator {
 
     /**
      * 获取java名
+     *
      * @param name
      * @param rule
      * @return
      */
-    private String getJavaPropertyName(String name,String rule) {
-        if(CommonUtil.isNullStr(name)){
-            throw  new RuntimeException("name is null");
+    private String getJavaPropertyName(String name, String rule) {
+        if (CommonUtil.isNullStr(name)) {
+            throw new RuntimeException("name is null");
         }
         String[] nameArr = name.split("_");
 
-        if(rule.equals(name_rule_10)){
+        if (rule.equals(name_rule_10)) {
             String result = "";
-            for(int i = 0;i<nameArr.length;i++){
+            for (int i = 0; i < nameArr.length; i++) {
                 result += firstUpperCase(nameArr[i]);
             }
             return result;
         }
-        if(rule.equals(name_rule_20)){
+        if (rule.equals(name_rule_20)) {
             String result = nameArr[0];
-            for(int i = 1;i<nameArr.length;i++){
+            for (int i = 1; i < nameArr.length; i++) {
                 result += firstUpperCase(nameArr[i]);
             }
             return result;
@@ -96,6 +103,7 @@ public class Generator {
 
     /**
      * 读取模板文件
+     *
      * @param file
      * @return
      */
@@ -120,52 +128,54 @@ public class Generator {
         }
     }
 
-    public static void readTemplateToCode(Map<String, Object> paramMap) {
+    /**
+     * 将字符流写成文件
+     *
+     * @param str
+     * @return
+     */
+    public void writeStringToFile(String str,String fileName) {
+        try {
+            FileOutputStream o = new FileOutputStream("D:\\generator\\"+fileName);
+            o.write(str.getBytes("UTF-8"));
+            o.close();
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        } finally {
+        }
+
+    }
+
+    /**
+     * 读取模板文件生成代码
+     *
+     * @param paramMap
+     */
+    public void readTemplateToCode(Map<String, Object> paramMap) {
         File file = new File(ClassLoader.getSystemResource("springmvc_web").getPath());
         for (File f : file.listFiles()) {
             String fileStr = readFileToString(f);
             String rr = FreemarkerUtil.getString(fileStr, paramMap);
+            String entity  = getJavaPropertyName(table_name.replace(sub_prefix_table, ""),Generator.name_rule_10);
+            String name = f.getName().replace("Template",entity).replace("Entity","");
+            writeStringToFile(rr,name);
 
         }
 
     }
 
-
-    public static void main(String[] args) {
-        File file = new File(ClassLoader.getSystemResource("springmvc_web").getPath());
-        for (File f : file.listFiles()) {
-            System.out.println(f.getName());
-            String r = readFileToString(f);
-            Map<String, Object> paramMap = new HashMap();
-            paramMap.put("org", org);
-            paramMap.put("app", app);
-            paramMap.put("entity", entity.replace(sub_prefix_table, ""));
-
-            List<Property> propertyList = new ArrayList<Property>();
-            Property p1 = new Property();
-            p1.setName("name1");
-            p1.setType("String");
-            Property p2 = new Property();
-            p2.setName("name2");
-            p2.setType("String");
-            propertyList.add(p1);
-            propertyList.add(p2);
-
-            paramMap.put("propertyList", propertyList);
-            String rr = FreemarkerUtil.getString(r, paramMap);
-//            System.out.println(rr);
-
-        }
-    }
 
     /**
      * 生成单表文件
+     *
      * @param tableName
      * @throws SQLException
      */
     public void generatorEntityByTable(String tableName) throws SQLException {
         Generator g = new Generator();
-        String entityName = g.getJavaPropertyName(tableName.replace(Generator.sub_prefix_table,""),Generator.name_rule_10);
+        table_name = tableName;
+        String entityName = g.getJavaPropertyName(tableName.replace(Generator.sub_prefix_table, ""), Generator.name_rule_10);
 
         Map<String, Object> paramMap = new HashMap();
         paramMap.put("org", org);
@@ -181,17 +191,19 @@ public class Generator {
         List<Property> propertyList = new ArrayList<Property>();
         while (ret1.next()) {
             String columnName = ret1.getString(1);
-            columnName = g.getJavaPropertyName(columnName,Generator.name_rule_20);
+            columnName = g.getJavaPropertyName(columnName, Generator.name_rule_20);
 
             String type = ret1.getString(2);
             if (type.indexOf("(") > 0) {
                 type = type.substring(0, type.indexOf("("));
             }
+            type = propertyMap.get(type);
             Property property = new Property();
             property.setName(columnName);
             property.setType(type);
             propertyList.add(property);
             paramMap.put("propertyList", propertyList);
+            readTemplateToCode(paramMap);
 
         }
         ret1.close();
@@ -199,6 +211,7 @@ public class Generator {
 
     /**
      * 生成数据库对应java文件
+     *
      * @throws SQLException
      */
     public void generatorEntityByDB() throws SQLException {
@@ -219,12 +232,11 @@ public class Generator {
     }
 
 
-    public static void main2(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException {
         Generator g = new Generator();
         g.generatorEntityByDB();
+//        g.generatorEntityByTable("tb_payment");
     }
-
-
 
 
 }

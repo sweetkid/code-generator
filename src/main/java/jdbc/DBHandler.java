@@ -43,8 +43,8 @@ public class DBHandler {
 
     public void close() {
         try {
-            this.conn.close();
             this.pst.close();
+            this.conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
