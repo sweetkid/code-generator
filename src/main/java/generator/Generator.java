@@ -35,7 +35,10 @@ public class Generator {
      **/
     private final static String name_rule_20 = "20";
 
+    /** 数据库类型 对应 java 类型 **/
     private static Map<String, String> propertyMap = new HashMap<String, String>();
+    /** 文件存放路径 **/
+    private static Map<String, String> fileDirMap = new HashMap<String, String>();
 
     static {
         propertyMap.put("varchar", "String");
@@ -53,6 +56,13 @@ public class Generator {
         propertyMap.put("varbinary", "String");
         propertyMap.put("time", "Date");
         propertyMap.put("timestamp", "Date");
+
+        fileDirMap.put("TemplateDao.java","D:\\generator\\dao\\");
+        fileDirMap.put("TemplateDao.xml","D:\\generator\\mapping\\");
+        fileDirMap.put("TemplateEntity.java","D:\\generator\\entity\\");
+        fileDirMap.put("TemplateService.java","D:\\generator\\service\\");
+        fileDirMap.put("TemplateServiceImpl.java","D:\\generator\\service\\impl\\");
+
     }
 
 
@@ -136,7 +146,7 @@ public class Generator {
      */
     public void writeStringToFile(String str,String fileName) {
         try {
-            FileOutputStream o = new FileOutputStream("D:\\generator\\"+fileName);
+            FileOutputStream o = new FileOutputStream(fileName);
             o.write(str.getBytes("UTF-8"));
             o.close();
         } catch (Exception e) {
@@ -157,9 +167,11 @@ public class Generator {
         for (File f : file.listFiles()) {
             String fileStr = readFileToString(f);
             String rr = FreemarkerUtil.getString(fileStr, paramMap);
+
+            String dir = fileDirMap.get(f.getName());
             String entity  = getJavaPropertyName(table_name.replace(sub_prefix_table, ""),Generator.name_rule_10);
             String name = f.getName().replace("Template",entity).replace("Entity","");
-            writeStringToFile(rr,name);
+            writeStringToFile(rr,dir+name);
 
         }
 
