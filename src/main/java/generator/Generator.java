@@ -184,7 +184,7 @@ public class Generator {
 
 
     /**
-     * 生成单表文件
+     * 生成文件 - 表
      *
      * @param tableName
      * @throws SQLException
@@ -231,7 +231,7 @@ public class Generator {
     }
 
     /**
-     * 生成数据库对应java文件
+     * 生成文件 - 数据库
      *
      * @throws SQLException
      */
