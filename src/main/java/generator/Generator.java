@@ -56,6 +56,8 @@ public class Generator {
         propertyMap.put("varbinary", "String");
         propertyMap.put("time", "Date");
         propertyMap.put("timestamp", "Date");
+        propertyMap.put("json", "String");
+        propertyMap.put("mediumtext", "String");
 
         fileDirMap.put("TemplateDao.java","D:\\generator\\dao\\");
         fileDirMap.put("TemplateDao.xml","D:\\generator\\mapping\\");
@@ -202,14 +204,18 @@ public class Generator {
 
         List<Property> propertyList = new ArrayList<Property>();
         while (ret1.next()) {
-            String columnName = ret1.getString(1);
+            String columnName = ret1.getString(1).toLowerCase();//自动转小写
             columnName = g.getJavaPropertyName(columnName, Generator.name_rule_20);
 
             String type = ret1.getString(2);
             if (type.indexOf("(") > 0) {
                 type = type.substring(0, type.indexOf("("));
             }
+            if(CommonUtil.isNullStr(propertyMap.get(type))){
+                throw new RuntimeException("jdbc type is null "+type);
+            }
             type = propertyMap.get(type);
+
             Property property = new Property();
             property.setName(columnName);
             property.setType(type);
