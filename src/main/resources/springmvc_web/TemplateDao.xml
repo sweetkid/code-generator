@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.${org}.${app}.${entity}Dao">
+<mapper namespace="com.${org}.${app}.dao.${entity}Dao">
 
 
     <resultMap id="BaseResultMap" type="com.${org}.${app}.model.entity.${entity}" >
@@ -10,12 +10,12 @@
     </resultMap>
 
     <sql id="Base_Column_List" >
-    <#list propertyList as plist>${plist.columnName}<#if plist_has_next>","</#if></#list>
+    <#list propertyList as plist>${plist.columnName}<#if plist_has_next>,</#if></#list>
     </sql>
 
 
     <select id="getById" resultType="com.${org}.${app}.model.entity.${entity}">
-        select * from ${tableName} where id=#{id}
+        select * from ${tableName} where id=${r"#{id}"}
     </select>
 
     <insert id="insert" parameterType="com.${org}.${app}.model.entity.${entity}" >
@@ -23,7 +23,7 @@
           <include refid="Base_Column_List" />
         )
         values (
-        <#list propertyList as plist>#{${plist.propertyName}}<#if plist_has_next>","</#if></#list>
+        <#list propertyList as plist>${r"#{"}${plist.propertyName}${r"}"}<#if plist_has_next>,</#if></#list>
         )
     </insert>
 
@@ -31,10 +31,10 @@
       update ${tableName}
       <set>
       <#list propertyList as plist>
-        ${plist.columnName}=${plist.propertyName}
+        ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"}
       </#list>
       </set>
-      where id = #{id}
+      where id = ${r"#{id}"}
     </update>
 
     <update id="updateByIdSelective" parameterType="com.${org}.${app}.model.entity.${entity}" >
@@ -42,16 +42,12 @@
     <set>
         <#list propertyList as plist>
         <if test="${plist.propertyName} != null" >
-        ${plist.columnName}=${plist.propertyName}
+        ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"}
         </if>
         </#list>
     </set>
-        where id = #{id}
+        where id = ${r"#{id}"}
     </update>
-
-
-
-
 
 
 </mapper>

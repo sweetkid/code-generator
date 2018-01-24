@@ -209,7 +209,8 @@ public class Generator {
 
         List<Property> propertyList = new ArrayList<Property>();
         while (ret1.next()) {
-            String columnName = ret1.getString(1).toLowerCase();//自动转小写
+            String columnName = ret1.getString(1);
+            //columnName = columnName.toLowerCase();//自动转小写
             String propertyName = g.getJavaPropertyName(columnName, Generator.name_rule_20);
 
             String columnType = ret1.getString(2);//获取数据类型
@@ -257,8 +258,8 @@ public class Generator {
 
     public static void main(String[] args) throws SQLException {
         Generator g = new Generator();
-//        g.generatorEntityByDB();
-        g.generatorEntityByTable("tb_payment");
+        g.generatorEntityByDB();
+//        g.generatorEntityByTable("tb_payment");
     }
 
 
