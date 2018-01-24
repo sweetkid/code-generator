@@ -64,6 +64,7 @@ public class Generator {
 
         fileDirMap.put("TemplateDao.java", "D:\\generator\\dao\\");
         fileDirMap.put("TemplateDao.xml", "D:\\generator\\mapping\\");
+        fileDirMap.put("TemplateDao_Ext.xml", "D:\\generator\\mapping\\");
         fileDirMap.put("TemplateEntity.java", "D:\\generator\\entity\\");
         fileDirMap.put("TemplateService.java", "D:\\generator\\service\\");
         fileDirMap.put("TemplateServiceImpl.java", "D:\\generator\\service\\impl\\");
@@ -198,6 +199,7 @@ public class Generator {
         paramMap.put("org", org);
         paramMap.put("app", app);
         paramMap.put("entity", entityName);
+        paramMap.put("tableName", tableName);
 
         String sql = "DESCRIBE " + tableName;//SQL语句
         PreparedStatement statement = DBHandler.getStatement(sql);
@@ -208,20 +210,20 @@ public class Generator {
         List<Property> propertyList = new ArrayList<Property>();
         while (ret1.next()) {
             String columnName = ret1.getString(1).toLowerCase();//自动转小写
-            columnName = g.getJavaPropertyName(columnName, Generator.name_rule_20);
+            String propertyName = g.getJavaPropertyName(columnName, Generator.name_rule_20);
 
-            String type = ret1.getString(2);//获取数据类型
-            if (type.indexOf("(") > 0) {
-                type = type.substring(0, type.indexOf("("));
+            String columnType = ret1.getString(2);//获取数据类型
+            if (columnType.indexOf("(") > 0) {
+                columnType = columnType.substring(0, columnType.indexOf("("));
             }
-            if (CommonUtil.isNullStr(propertyMap.get(type))) {
-                throw new RuntimeException("jdbc type is null " + type);
+            if (CommonUtil.isNullStr(propertyMap.get(columnType))) {
+                throw new RuntimeException("jdbc type is null " + columnType);
             }
-            type = propertyMap.get(type);
-
             Property property = new Property();
-            property.setName(columnName);
-            property.setType(type);
+            property.setColumnName(columnName);
+            property.setColumnType(columnType);
+            property.setPropertyName(propertyName);
+            property.setPropertyType(propertyMap.get(columnType));
             propertyList.add(property);
             paramMap.put("propertyList", propertyList);
             readTemplateToCode(paramMap);
@@ -255,8 +257,8 @@ public class Generator {
 
     public static void main(String[] args) throws SQLException {
         Generator g = new Generator();
-        g.generatorEntityByDB();
-//        g.generatorEntityByTable("tb_payment");
+//        g.generatorEntityByDB();
+        g.generatorEntityByTable("tb_payment");
     }
 
 

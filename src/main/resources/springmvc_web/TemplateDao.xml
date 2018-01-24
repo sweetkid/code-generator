@@ -1,9 +1,57 @@
-package com.${org}.${app}.dao;
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.${org}.${app}.${entity}Dao">
 
-/**
- * @author Quinn
- * @date 2018/1/15
- * @package com.quinn.app.dao
- */
-public interface ${entity}Dao extends BaseDao {
-}
+
+    <resultMap id="BaseResultMap" type="com.${org}.${app}.model.entity.${entity}" >
+        <#list propertyList as plist>
+        <result column="${plist.columnName}" property="${plist.propertyName}" jdbcType="${plist.columnType}" />
+        </#list>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+    <#list propertyList as plist>${plist.columnName}<#if plist_has_next>","</#if></#list>
+    </sql>
+
+
+    <select id="getById" resultType="com.${org}.${app}.model.entity.${entity}">
+        select * from ${tableName} where id=#{id}
+    </select>
+
+    <insert id="insert" parameterType="com.${org}.${app}.model.entity.${entity}" >
+        insert into ${tableName} (
+          <include refid="Base_Column_List" />
+        )
+        values (
+        <#list propertyList as plist>#{${plist.propertyName}}<#if plist_has_next>","</#if></#list>
+        )
+    </insert>
+
+    <update id="updateById" parameterType="com.${org}.${app}.model.entity.${entity}" >
+      update ${tableName}
+      <set>
+      <#list propertyList as plist>
+        ${plist.columnName}=${plist.propertyName}
+      </#list>
+      </set>
+      where id = #{id}
+    </update>
+
+    <update id="updateByIdSelective" parameterType="com.${org}.${app}.model.entity.${entity}" >
+    update ${tableName}
+    <set>
+        <#list propertyList as plist>
+        <if test="${plist.propertyName} != null" >
+        ${plist.columnName}=${plist.propertyName}
+        </if>
+        </#list>
+    </set>
+        where id = #{id}
+    </update>
+
+
+
+
+
+
+</mapper>

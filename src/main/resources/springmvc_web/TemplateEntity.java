@@ -13,15 +13,15 @@ public class ${entity} extends Base {
 
 
         <#list propertyList as plist>
-        private ${plist.type} ${plist.name};
+        private ${plist.propertyType} ${plist.propertyName};
         </#list>
 
         <#list propertyList as plist>
-        public ${plist.type} get${plist.name?cap_first }() {
-            return ${plist.name};
+        public ${plist.propertyType} get${plist.propertyName?cap_first }() {
+            return ${plist.propertyName};
         }
-        public void set${plist.name?cap_first } (${plist.type} ${plist.name}) {
-            this.${plist.name} = ${plist.name};
+        public void set${plist.propertyName?cap_first } (${plist.propertyType} ${plist.propertyName}) {
+            this.${plist.propertyName} = ${plist.propertyName};
         }
         </#list>
 
@@ -30,7 +30,7 @@ public class ${entity} extends Base {
         public String toString() {
             return "{" +
         <#list propertyList as plist>
-            "\"${plist.name}\":" + "\"" + ${plist.name} + "\"" <#if plist_has_next>+ "," </#if>+
+            "\"${plist.propertyName}\":" + "\"" + ${plist.propertyName} + "\"" <#if plist_has_next>+ "," </#if>+
         </#list>
             '}';
         }

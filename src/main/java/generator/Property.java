@@ -6,30 +6,51 @@ package generator;
  * @package generator
  */
 public class Property {
-    private String name;
-    private String type;
 
-    public String getName() {
-        return name;
+
+    private String columnName;
+    private String columnType;
+    private String propertyName;
+    private String propertyType;
+
+
+    public String getColumnName() {
+        return columnName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
     }
 
-    public String getType() {
-        return type;
+    public String getColumnType() {
+        return columnType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setColumnType(String columnType) {
+        this.columnType = columnType;
+    }
+
+    public String getPropertyName() {
+        return propertyName;
+    }
+
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
+    }
+
+    public String getPropertyType() {
+        return propertyType;
+    }
+
+    public void setPropertyType(String propertyType) {
+        this.propertyType = propertyType;
     }
 
     @Override
     public String toString() {
         return "Property{" +
-                "name='" + name + '\'' +
-                ", type='" + type + '\'' +
+                "name='" + propertyName + '\'' +
+                ", type='" + propertyType + '\'' +
                 '}';
     }
 }

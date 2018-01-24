@@ -12,7 +12,7 @@ import java.sql.SQLException;
  */
 public class DBHandler {
 
-    public static final String url = "jdbc:mysql://localhost:3306/risk?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull";
+    public static final String url = "jdbc:mysql://localhost:3306/medcfc_pay?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull";
     public static final String name = "com.mysql.jdbc.Driver";
     public static final String user = "root";
     public static final String password = "root";
