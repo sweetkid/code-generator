@@ -1,6 +1,7 @@
 package com.${org}.${app}.service;
 
 import java.util.*;
+import com.quinn.BaseService;
 
 /**
  * @author Quinn
