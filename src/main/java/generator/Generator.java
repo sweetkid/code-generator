@@ -37,30 +37,54 @@ public class Generator {
     /**
      * 数据库类型 对应 java 类型
      **/
-    private static Map<String, String> propertyMap = new HashMap<String, String>();
+    private static Map<String, String> javaTypeMap = new HashMap<String, String>();
+    private static Map<String, String> jdbcTypeMap = new HashMap<String, String>();
     /**
      * 文件存放路径
      **/
     private static Map<String, String> fileDirMap = new HashMap<String, String>();
 
     static {
-        propertyMap.put("varchar", "String");
-        propertyMap.put("text", "String");
-        propertyMap.put("datetime", "Date");
-        propertyMap.put("bigint", "Long");
-        propertyMap.put("int", "Integer");
-        propertyMap.put("decimal", "BigDecimal");
-        propertyMap.put("tinyint", "Integer");
-        propertyMap.put("date", "Date");
-        propertyMap.put("double", "Double");
-        propertyMap.put("float", "Float");
-        propertyMap.put("longtext", "String");
-        propertyMap.put("tinytext", "String");
-        propertyMap.put("varbinary", "String");
-        propertyMap.put("time", "Date");
-        propertyMap.put("timestamp", "Date");
-        propertyMap.put("json", "String");
-        propertyMap.put("mediumtext", "String");
+        javaTypeMap.put("varchar", "String");
+        javaTypeMap.put("text", "String");
+        javaTypeMap.put("datetime", "Date");
+        javaTypeMap.put("bigint", "Long");
+        javaTypeMap.put("int", "Integer");
+        javaTypeMap.put("decimal", "BigDecimal");
+        javaTypeMap.put("tinyint", "Integer");
+        javaTypeMap.put("date", "Date");
+        javaTypeMap.put("double", "Double");
+        javaTypeMap.put("float", "Float");
+        javaTypeMap.put("longtext", "String");
+        javaTypeMap.put("tinytext", "String");
+        javaTypeMap.put("varbinary", "String");
+        javaTypeMap.put("time", "Date");
+        javaTypeMap.put("timestamp", "Date");
+        javaTypeMap.put("json", "String");
+        javaTypeMap.put("mediumtext", "String");
+
+
+        jdbcTypeMap.put("varchar", "VARCHAR");
+        jdbcTypeMap.put("text", "LONGVARCHAR");
+        jdbcTypeMap.put("datetime", "TIMESTAMP");
+        jdbcTypeMap.put("bigint", "BIGINT");
+        jdbcTypeMap.put("int", "INTEGER");
+        jdbcTypeMap.put("decimal", "DECIMAL");
+        jdbcTypeMap.put("tinyint", "TINYINT");
+        jdbcTypeMap.put("date", "DATE");
+        jdbcTypeMap.put("double", "DOUBLE");
+        jdbcTypeMap.put("float", "REAL");
+        jdbcTypeMap.put("longtext", "LONGVARCHAR");
+        jdbcTypeMap.put("tinytext", "VARCHAR");
+        jdbcTypeMap.put("varbinary", "LONGVARBINARY");
+        jdbcTypeMap.put("time", "TIME");
+        jdbcTypeMap.put("timestamp", "TIMESTAMP");
+        jdbcTypeMap.put("json", "VARCHAR");
+        jdbcTypeMap.put("mediumtext", "LONGVARCHAR");
+
+
+
+
 
         fileDirMap.put("TemplateDao.java", "D:\\generator\\dao\\");
         fileDirMap.put("TemplateDao.xml", "D:\\generator\\mapping\\");
@@ -214,17 +238,23 @@ public class Generator {
             String propertyName = g.getJavaPropertyName(columnName, Generator.name_rule_20);
 
             String columnType = ret1.getString(2);//获取数据类型
+
             if (columnType.indexOf("(") > 0) {
                 columnType = columnType.substring(0, columnType.indexOf("("));
             }
-            if (CommonUtil.isNullStr(propertyMap.get(columnType))) {
+
+            if (CommonUtil.isNullStr(javaTypeMap.get(columnType))) {
+                throw new RuntimeException("java type is null " + columnType);
+            }
+            if (CommonUtil.isNullStr(jdbcTypeMap.get(columnType))) {
                 throw new RuntimeException("jdbc type is null " + columnType);
             }
             Property property = new Property();
             property.setColumnName(columnName);
             property.setColumnType(columnType);
+            property.setJdbcType(jdbcTypeMap.get(columnType));
             property.setPropertyName(propertyName);
-            property.setPropertyType(propertyMap.get(columnType));
+            property.setPropertyType(javaTypeMap.get(columnType));
             propertyList.add(property);
             paramMap.put("propertyList", propertyList);
             readTemplateToCode(paramMap);

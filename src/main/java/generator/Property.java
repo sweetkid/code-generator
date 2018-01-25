@@ -10,6 +10,7 @@ public class Property {
 
     private String columnName;
     private String columnType;
+    private String jdbcType;
     private String propertyName;
     private String propertyType;
 
@@ -44,6 +45,14 @@ public class Property {
 
     public void setPropertyType(String propertyType) {
         this.propertyType = propertyType;
+    }
+
+    public String getJdbcType() {
+        return jdbcType;
+    }
+
+    public void setJdbcType(String jdbcType) {
+        this.jdbcType = jdbcType;
     }
 
     @Override
