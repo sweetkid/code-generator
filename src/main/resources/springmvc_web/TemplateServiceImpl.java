@@ -14,5 +14,5 @@ import com.quinn.BaseServiceImpl;
 public class ${entity}ServiceImpl extends BaseServiceImpl<${entity?cap_first}Dao> implements ${entity}Service {
 
     @Autowired
-    private ${entity}Dao ${entity?cap_first}Dao;
+    private ${entity}Dao ${entity?lower_case}Dao;
 }
