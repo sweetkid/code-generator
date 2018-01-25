@@ -2,7 +2,7 @@
 ### 入口
 generator.Generator.main
 #### 对库生成
-Generator.generatorEntityByDB
+Generator.generatorEntityByDB()
 #### 对表生成
 Generator.generatorEntityByTable(表名)
 
