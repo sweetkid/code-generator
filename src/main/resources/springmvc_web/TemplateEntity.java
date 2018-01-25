@@ -1,13 +1,13 @@
 package com.${org}.${app}.model.entity;
 
 
-import com.${org}.${app}.model.Base;
+import com.${org}.${app}.Base;
 import java.util.*;
 import java.math.BigDecimal;
 
 /**
  * @author Quinn
- * @date 2018/1/15
+ * @date ${.now?string("yyyy/MM/dd")}
  */
 public class ${entity} extends Base {
 

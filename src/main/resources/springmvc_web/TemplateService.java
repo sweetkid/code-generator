@@ -1,11 +1,11 @@
 package com.${org}.${app}.service;
 
 import java.util.*;
-import com.quinn.BaseService;
+import com.${org}.BaseService;
 
 /**
  * @author Quinn
- * @date 2018/1/15
+ * @date ${.now?string("yyyy/MM/dd")}
  */
 public interface ${entity}Service extends BaseService {
 }

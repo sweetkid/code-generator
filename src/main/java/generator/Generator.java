@@ -18,7 +18,7 @@ import java.util.*;
 public class Generator {
 
     private final static String org = "quinn";
-    private final static String app = "payment";
+    private final static String app = "app";
     private static String table_name = "tb_payment";
     /**
      * 需要去掉的前缀

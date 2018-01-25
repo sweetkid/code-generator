@@ -5,7 +5,7 @@
 
     <resultMap id="BaseResultMap" type="com.${org}.${app}.model.entity.${entity}" >
         <#list propertyList as plist>
-        <result column="${plist.columnName}" property="${plist.propertyName}" jdbcType="${plist.jdbcType?upper_case}" />
+        <result column="${plist.columnName}" property="${plist.propertyName}" jdbcType="${plist.columnType?upper_case}" />
         </#list>
     </resultMap>
 
