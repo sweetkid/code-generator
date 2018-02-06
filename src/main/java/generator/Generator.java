@@ -19,11 +19,11 @@ public class Generator {
 
     private final static String org = "quinn";
     private final static String app = "yfq";
-    private static String table_name = "ydc_user";
+    private static String table_name = "ti_user_inf";
     /**
      * 需要去掉的前缀
      */
-    private final static String sub_prefix_table = "ydc_";
+    private final static String sub_prefix_table = "ti_";
 
     /**
      * 首字母大写
@@ -289,7 +289,7 @@ public class Generator {
     public static void main(String[] args) throws SQLException {
         Generator g = new Generator();
 //        g.generatorEntityByDB();
-        g.generatorEntityByTable("ydc_user");
+        g.generatorEntityByTable("ti_user_inf");
     }
 
 
