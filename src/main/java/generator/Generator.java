@@ -18,12 +18,12 @@ import java.util.*;
 public class Generator {
 
     private final static String org = "quinn";
-    private final static String app = "app";
-    private static String table_name = "tb_payment";
+    private final static String app = "yfq";
+    private static String table_name = "ydc_user";
     /**
      * 需要去掉的前缀
      */
-    private final static String sub_prefix_table = "tb_";
+    private final static String sub_prefix_table = "ydc_";
 
     /**
      * 首字母大写
@@ -288,8 +288,8 @@ public class Generator {
 
     public static void main(String[] args) throws SQLException {
         Generator g = new Generator();
-        g.generatorEntityByDB();
-//        g.generatorEntityByTable("tb_payment");
+//        g.generatorEntityByDB();
+        g.generatorEntityByTable("ydc_user");
     }
 
 

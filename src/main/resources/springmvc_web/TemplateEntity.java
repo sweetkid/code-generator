@@ -1,7 +1,7 @@
 package com.${org}.${app}.model.entity;
 
 
-import com.${org}.${app}.Base;
+import com.${org}.Base;
 import java.util.*;
 import java.math.BigDecimal;
 

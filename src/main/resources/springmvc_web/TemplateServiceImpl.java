@@ -10,7 +10,7 @@ import com.${org}.BaseServiceImpl;
  * @author Quinn
  * @date ${.now?string("yyyy/MM/dd")}
  */
-@Service("${entity?cap_first}Service")
+@Service("${entity?lower_case}Service")
 public class ${entity}ServiceImpl extends BaseServiceImpl<${entity?cap_first}Dao> implements ${entity}Service {
 
     @Autowired
