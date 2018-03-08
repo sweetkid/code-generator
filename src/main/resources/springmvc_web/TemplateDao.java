@@ -2,7 +2,7 @@ package com.${org}.${app}.dao;
 
 import java.util.*;
 import org.springframework.stereotype.Repository;
-import com.quinn.BaseDao;
+import com.${org}.BaseDao;
 
 /**
  * @author Quinn
