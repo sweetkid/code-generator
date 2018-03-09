@@ -14,7 +14,7 @@
     </sql>
 
 
-    <select id="getById" resultType="com.${org}.${app}.model.entity.${entity}">
+    <select id="getById" resultMap="BaseResultMap">
         select * from ${tableName} where id=${r"#{id}"}
     </select>
 
