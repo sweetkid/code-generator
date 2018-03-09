@@ -17,8 +17,8 @@ import java.util.*;
  */
 public class Generator {
 
-    private final static String org = "quinn";
-    private final static String app = "yfq";
+    private final static String org = "qiaorong";
+    private final static String app = "cs";
     private static String table_name = "ti_user_inf";
     /**
      * 需要去掉的前缀
@@ -195,6 +195,10 @@ public class Generator {
     public void readTemplateToCode(Map<String, Object> paramMap) {
         File file = new File(ClassLoader.getSystemResource("springmvc_web").getPath());
         for (File f : file.listFiles()) {
+            if(f.getName().equals("TemplateDao_Ext.xml")){
+                System.out.println("TemplateDao_Ext.xml 暂时不生成");
+                continue;
+            }
             String fileStr = readFileToString(f);
             String rr = FreemarkerUtil.getString(fileStr, paramMap);
 
@@ -257,9 +261,9 @@ public class Generator {
             property.setPropertyType(javaTypeMap.get(columnType));
             propertyList.add(property);
             paramMap.put("propertyList", propertyList);
-            readTemplateToCode(paramMap);
 
         }
+        readTemplateToCode(paramMap);
         ret1.close();
     }
 
@@ -288,8 +292,8 @@ public class Generator {
 
     public static void main(String[] args) throws SQLException {
         Generator g = new Generator();
-//        g.generatorEntityByDB();
-        g.generatorEntityByTable("ti_user_inf");
+        g.generatorEntityByDB();
+//        g.generatorEntityByTable("ti_user_inf");
     }
 
 

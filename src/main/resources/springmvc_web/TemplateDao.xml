@@ -31,7 +31,7 @@
       update ${tableName}
       <set>
       <#list propertyList as plist>
-        ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"}
+        ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"} <#if plist_has_next>,</#if>
       </#list>
       </set>
       where id = ${r"#{id}"}
@@ -42,7 +42,7 @@
     <set>
         <#list propertyList as plist>
         <if test="${plist.propertyName} != null" >
-        ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"}
+        ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"} <#if plist_has_next>,</#if>
         </if>
         </#list>
     </set>
