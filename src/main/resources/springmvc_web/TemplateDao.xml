@@ -9,6 +9,7 @@
         </#list>
     </resultMap>
 
+
     <sql id="Base_Column_List" >
     <#list propertyList as plist>${plist.columnName}<#if plist_has_next>,</#if></#list>
     </sql>

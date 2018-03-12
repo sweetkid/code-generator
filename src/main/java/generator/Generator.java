@@ -89,6 +89,7 @@ public class Generator {
         fileDirMap.put("TemplateDao.java", "D:\\generator\\dao\\");
         fileDirMap.put("TemplateDao.xml", "D:\\generator\\mapping\\");
         fileDirMap.put("TemplateDao_Ext.xml", "D:\\generator\\mapping\\");
+        fileDirMap.put("TemplateBo.java", "D:\\generator\\bo\\");
         fileDirMap.put("TemplateEntity.java", "D:\\generator\\entity\\");
         fileDirMap.put("TemplateService.java", "D:\\generator\\service\\");
         fileDirMap.put("TemplateServiceImpl.java", "D:\\generator\\service\\impl\\");
@@ -238,7 +239,7 @@ public class Generator {
         List<Property> propertyList = new ArrayList<Property>();
         while (ret1.next()) {
             String columnName = ret1.getString(1);
-            //columnName = columnName.toLowerCase();//自动转小写
+            columnName = columnName.toLowerCase();//自动转小写
             String propertyName = g.getJavaPropertyName(columnName, Generator.name_rule_20);
 
             String columnType = ret1.getString(2);//获取数据类型
