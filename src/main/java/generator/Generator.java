@@ -197,8 +197,8 @@ public class Generator {
         File file = new File(ClassLoader.getSystemResource("springmvc_web").getPath());
         for (File f : file.listFiles()) {
             if(f.getName().equals("TemplateDao_Ext.xml")){
-                System.out.println("TemplateDao_Ext.xml 暂时不生成");
-                continue;
+//                System.out.println("TemplateDao_Ext.xml 暂时不生成");
+//                continue;
             }
             String fileStr = readFileToString(f);
             String rr = FreemarkerUtil.getString(fileStr, paramMap);
@@ -293,8 +293,8 @@ public class Generator {
 
     public static void main(String[] args) throws SQLException {
         Generator g = new Generator();
-        g.generatorEntityByDB();
-//        g.generatorEntityByTable("ti_user_inf");
+//        g.generatorEntityByDB();
+        g.generatorEntityByTable("case_detail");
     }
 
 

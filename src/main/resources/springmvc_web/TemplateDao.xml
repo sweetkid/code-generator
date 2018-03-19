@@ -50,5 +50,18 @@
         where id = ${r"#{id}"}
     </update>
 
+    <select id="listByEntity"  resultMap="BaseResultMap" >
+      select <include refid="Base_Column_List" /> from  ${tableName}
+        <where>
+            <#list propertyList as plist>
+            <if test="${plist.propertyName} != null" >
+               AND ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"}
+            </if>
+            </#list>
+        </where>
+    </select>
+
+
+
 
 </mapper>
