@@ -294,7 +294,7 @@ public class Generator {
     public static void main(String[] args) throws SQLException {
         Generator g = new Generator();
 //        g.generatorEntityByDB();
-        g.generatorEntityByTable("case_queue");
+        g.generatorEntityByTable("cs_company_user_relation");
     }
 
 

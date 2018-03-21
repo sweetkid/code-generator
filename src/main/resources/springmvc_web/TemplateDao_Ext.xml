@@ -5,10 +5,12 @@
     <resultMap id="BoResultMap" type="com.${org}.${app}.model.bo.${entity}Bo" extends="BaseResultMap" >
     </resultMap>
 
+    <!--
     <select id="getBy${propertyList[0].propertyName?cap_first }" resultMap="BoResultMap">
         select * from ${tableName} where
         ${propertyList[0].columnName} = ${r"#{"}${propertyList[0].propertyName}${r"}"}
     </select>
+    -->
 
 
 </mapper>
