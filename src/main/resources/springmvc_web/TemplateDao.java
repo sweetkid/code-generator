@@ -10,4 +10,6 @@ import com.${org}.BaseDao;
  */
 @Repository
 public interface ${entity}Dao extends BaseDao {
+        List<${entity}> listByEntity(${entity} entity);
+
 }
