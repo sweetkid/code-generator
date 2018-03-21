@@ -16,7 +16,8 @@
 
 
     <select id="getById" resultMap="BaseResultMap">
-        select * from ${tableName} where id=${r"#{id}"}
+        select * from ${tableName} where
+        ${propertyList[0].columnName} = ${r"#{"}${propertyList[0].propertyName}${r"}"}
     </select>
 
     <insert id="insert" parameterType="com.${org}.${app}.model.entity.${entity}" >
@@ -54,7 +55,7 @@
       select <include refid="Base_Column_List" /> from  ${tableName}
         <where>
             <#list propertyList as plist>
-            <if test="${plist.propertyName} != null" >
+            <if test="${plist.propertyName} != null and ${plist.propertyName} != '' " >
                AND ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"}
             </if>
             </#list>
