@@ -3,6 +3,7 @@ package com.${org}.${app}.dao;
 import java.util.*;
 import org.springframework.stereotype.Repository;
 import com.${org}.BaseDao;
+import com.${org}.${app}.model.entity.${entity};
 
 /**
  * @author Quinn
