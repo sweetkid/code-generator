@@ -55,9 +55,15 @@
       select <include refid="Base_Column_List" /> from  ${tableName}
         <where>
             <#list propertyList as plist>
-            <if test="${plist.propertyName} != null and ${plist.propertyName} != '' " >
-               AND ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"}
+            <#if plist.jdbcType == 'TIMESTAMP'>
+            <if test="${plist.propertyName} != null" >
+                AND ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"}
             </if>
+            <#else>
+            <if test="${plist.propertyName} != null and ${plist.propertyName} != '' ">
+                AND ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"}
+            </if>
+            </#if>
             </#list>
         </where>
     </select>
