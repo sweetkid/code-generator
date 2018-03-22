@@ -36,7 +36,7 @@
         ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"} <#if plist_has_next>,</#if>
       </#list>
       </set>
-      where id = ${r"#{id}"}
+      where ${propertyList[0].columnName} = ${r"#{"}${propertyList[0].propertyName}${r"}"}
     </update>
 
     <update id="updateByIdSelective" parameterType="com.${org}.${app}.model.entity.${entity}" >
@@ -48,7 +48,7 @@
         </if>
         </#list>
     </set>
-        where id = ${r"#{id}"}
+        where ${propertyList[0].columnName} = ${r"#{"}${propertyList[0].propertyName}${r"}"}
     </update>
 
     <select id="listByEntity"  resultMap="BaseResultMap" >
