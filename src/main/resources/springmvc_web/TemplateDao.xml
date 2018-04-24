@@ -59,6 +59,41 @@
             <if test="${plist.propertyName} != null" >
                 AND ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"}
             </if>
+
+            <#elseif plist.jdbcType == 'INTEGER'>
+            <if test="${plist.propertyName} != null" >
+                AND ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"}
+            </if>
+            <#elseif plist.jdbcType == 'DOUBLE'>
+            <if test="${plist.propertyName} != null" >
+                AND ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"}
+            </if>
+
+            <#elseif plist.jdbcType == 'DATE'>
+            <if test="${plist.propertyName} != null" >
+                AND ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"}
+            </if>
+
+            <#elseif plist.jdbcType == 'TIME'>
+            <if test="${plist.propertyName} != null" >
+                AND ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"}
+            </if>
+
+            <#elseif plist.jdbcType == 'BIGINT'>
+            <if test="${plist.propertyName} != null" >
+                AND ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"}
+            </if>
+
+            <#elseif plist.jdbcType == 'DECIMAL'>
+            <if test="${plist.propertyName} != null" >
+                AND ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"}
+            </if>
+
+            <#elseif plist.jdbcType == 'TINYINT'>
+            <if test="${plist.propertyName} != null" >
+                AND ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"}
+            </if>
+
             <#else>
             <if test="${plist.propertyName} != null and ${plist.propertyName} != '' ">
                 AND ${plist.columnName} = ${r"#{"}${plist.propertyName}${r"}"}
